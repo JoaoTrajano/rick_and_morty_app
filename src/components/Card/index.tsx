@@ -8,7 +8,6 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  InputLabel,
   MenuItem,
   Pagination,
   Select,
