@@ -13,14 +13,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Character />,
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "character",
-        element: <Character />,
-      },
-    ],
   },
 ]);
 
