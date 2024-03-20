@@ -8,6 +8,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  InputLabel,
   MenuItem,
   Pagination,
   Select,
@@ -97,6 +98,13 @@ export default function CardCharacter() {
 
   return (
     <Grid container spacing={4} padding={4}>
+      <Grid item xs={12}>
+        <InputLabel id="demo-simple-select-label">
+          <span style={{ color: "#e3e3e3 " }}>
+            Total de personagens cadastrados: {count}
+          </span>
+        </InputLabel>
+      </Grid>
       <Grid item xs={3}>
         <TextField
           id="standard-basic"
