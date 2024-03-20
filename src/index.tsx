@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Root from "./router/root";
+import { ToastContainer, toast } from 'react-toastify';
+
+  import 'react-toastify/dist/ReactToastify.css';
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -27,5 +29,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
+    <ToastContainer />
   </QueryClientProvider>
 );
