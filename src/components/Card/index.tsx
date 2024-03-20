@@ -12,6 +12,9 @@ import { Pagination, Stack } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import { CustomCardContent } from "./style";
+import { CardItem, CustomCardItemContent } from "../Characters/style";
+import { Characters } from "../Characters";
 
 export type CardCharacterProps = {
   name: string;
@@ -65,66 +68,14 @@ export default function CardCharacter() {
     : 10;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      {characters &&
-        characters.map((prop: any) => {
-          return (
-            <Card
-              sx={{
-                width: "40%",
-                height: "40vh",
-                backgroundColor: "rgba(0, 0, 0, 0.32)",
-                color: "rgb(245, 245, 245)",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 2)",
-              }}
-              style={{
-                display: "flex",
-                columnGap: 16,
-              }}
-              key={prop.id}
-            >
-              <CardMedia
-                component="img"
-                image={prop.image}
-                style={{ width: "34%", height: "40vh" }}
-              />
-              <CardContent style={{ width: "100%", padding: 3 }}>
-                <Typography gutterBottom variant="h5" component="div">
-                  {prop.name}
-                </Typography>
-                <Status status={prop.status} species={prop.species} />
-                <Typography gutterBottom variant="body2" component="div">
-                  <p>
-                    <strong> Localização:</strong> {prop.location.name}
-                  </p>
-                  <p>Total de Episódios: {prop.episode.length}</p>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    onClick={async () => {
-                      setOpen(!open);
-                      const singleCharacter = await listSingleCharacter(
-                        prop.id
-                      );
-                      setCharacter(singleCharacter.value.character);
-                    }}
-                  >
-                    Saber mais
-                  </Button>
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })}
+    <CustomCardContent>
+      <Characters
+        characters={characters}
+        handleChange={{
+          openModal: setOpen,
+          handleSetCharacter: setCharacter,
+        }}
+      />
       <Stack spacing={2} py={4}>
         <Pagination
           count={count}
@@ -199,6 +150,6 @@ export default function CardCharacter() {
           </Card>
         </Box>
       </Modal>
-    </div>
+    </CustomCardContent>
   );
 }
