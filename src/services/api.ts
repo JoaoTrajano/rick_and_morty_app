@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://rick-and-morty-api-c1be0d6c8b1a.herokuapp.com",
 });
 
 export { api };
