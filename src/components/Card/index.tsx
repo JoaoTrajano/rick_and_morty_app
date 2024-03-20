@@ -8,7 +8,11 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  InputLabel,
+  MenuItem,
   Pagination,
+  Select,
+  SelectChangeEvent,
   Stack,
   TextField,
   Typography,
@@ -25,6 +29,11 @@ export type CardCharacterProps = {
   status: string;
   species: string;
   image: string;
+  gender: string;
+  origin: {
+    name: string;
+    url: string;
+  };
   location: {
     name: string;
     url: string;
@@ -35,36 +44,84 @@ export type CardCharacterProps = {
   }[];
 };
 
+export type Options = {
+  name: string;
+  value: string;
+};
+
 export default function CardCharacter() {
+  const [character, setCharacter] = useState<CardCharacterProps>({
+    id: 0,
+    name: "",
+    status: "",
+    species: "",
+    image: "",
+    gender: "",
+    origin: {
+      name: "",
+      url: "",
+    },
+    location: {
+      name: "",
+      url: "",
+    },
+    episode: [{ name: "", url: "" }],
+  });
+  const [search, setSearch] = useState<string>("");
+  const [option, setOption] = useState<string>("");
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState<boolean>(false);
-  const [character, setCharacter] = useState<any>();
+
+  const options = [
+    { name: "Todos", value: "" },
+    { name: "Vivo", value: "alive" },
+    { name: "Morto", value: "dead" },
+  ] as Options[];
 
   const { data } = useQuery({
     enabled: true,
-    queryKey: ["listAllCharacters", { page }],
+    queryKey: ["listAllCharacters", { page, name: search, status: option }],
     queryFn: async (): Promise<ApiResponse> =>
-      await listAllCharacters({ page }),
+      await listAllCharacters({ page, name: search, status: option }),
   });
 
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
+  const handleChangeSelect = (event: SelectChangeEvent) => {
+    setOption(event.target.value as string);
+  };
   const characters = data?.value?.characters as CardCharacterProps[];
   const count = (data as any)?.metadata
-    ? (data as any)?.metadata.metadata.count
+    ? (data as any)?.metadata?.metadata?.count
     : 10;
 
   return (
     <Grid container spacing={4} padding={4}>
-      <Grid item>
+      <Grid item xs={3}>
         <TextField
           id="standard-basic"
-          label="Pesquise por NOME ou por STATUS"
+          label="Pesquise por NOME"
           variant="outlined"
-          color="primary"
+          color="info"
+          onChange={(event) => setSearch(event.target.value)}
+          fullWidth
         />
+      </Grid>
+      <Grid item xs={3}>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Status"
+          color="info"
+          value={option}
+          onChange={handleChangeSelect}
+          fullWidth
+        >
+          {options.map((option) => (
+            <MenuItem value={option.value}>{option.name}</MenuItem>
+          ))}
+        </Select>
       </Grid>
       <Grid item>
         <CustomCardContent container>
@@ -87,7 +144,23 @@ export default function CardCharacter() {
             open={open}
             onClose={() => {
               setOpen(false);
-              setCharacter({});
+              setCharacter({
+                id: 0,
+                name: "",
+                status: "",
+                species: "",
+                image: "",
+                gender: "",
+                origin: {
+                  name: "",
+                  url: "",
+                },
+                location: {
+                  name: "",
+                  url: "",
+                },
+                episode: [{ name: "", url: "" }],
+              });
             }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -108,15 +181,12 @@ export default function CardCharacter() {
             >
               <CardMedia
                 component="img"
-                image={character?.image}
+                image={character.image}
                 style={{ width: "100%", height: "64vh", objectFit: "cover" }}
               />
               <Typography gutterBottom variant="h5" component="div">
-                {character?.name}
-                <Status
-                  status={character?.status}
-                  species={character?.species}
-                />
+                {character.name}
+                <Status status={character.status} species={character.species} />
               </Typography>
               <CardContent
                 style={{
@@ -130,20 +200,20 @@ export default function CardCharacter() {
                 <div>
                   <Typography gutterBottom variant="body2" component="div">
                     <p>
-                      <strong> Localização:</strong> {character?.location?.name}
+                      <strong> Localização:</strong> {character.location.name}
                     </p>
-                    <p>Total de Episódios: {character?.episode?.length}</p>
+                    <p>Total de Episódios: {character.episode.length}</p>
                   </Typography>
                   <Typography gutterBottom variant="body2" component="div">
                     <p>
-                      <strong> Genêro:</strong> {character?.gender}
+                      <strong> Genêro:</strong> {character.gender}
                     </p>
                   </Typography>
                 </div>
                 <div>
                   <Typography gutterBottom variant="body2" component="div">
                     <p>
-                      <strong> Origem:</strong> {character?.origin?.name}
+                      <strong> Origem:</strong> {character.origin.name}
                     </p>
                   </Typography>
                 </div>
