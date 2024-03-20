@@ -3,7 +3,14 @@ import React, { useState } from "react";
 import { listAllCharacters } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse } from "../../services/type";
-import { Pagination, Stack } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -11,6 +18,7 @@ import Box from "@mui/material/Box";
 import { CustomCardContent } from "./style";
 import { CardItem, CustomCardItemContent } from "../Characters/style";
 import { Characters } from "../Characters";
+import { Status } from "../Status";
 
 export type CardCharacterProps = {
   name: string;
@@ -25,6 +33,21 @@ export type CardCharacterProps = {
     name: string;
     url: string;
   }[];
+};
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600, // Alterando a largura do modal
+  height: 600, // Alterando a altura do modal
+  bgcolor: "rgb(39, 43, 51);",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
 };
 
 export default function CardCharacter() {
@@ -65,7 +88,7 @@ export default function CardCharacter() {
           color="secondary"
         />
       </Stack>
-      {/* <Modal
+      <Modal
         open={open}
         onClose={() => {
           setOpen(false);
@@ -74,7 +97,7 @@ export default function CardCharacter() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
+        <Box sx={style}>
           <Card
             sx={{
               width: "100%", // Aumentando a largura do card dentro do modal
@@ -130,7 +153,7 @@ export default function CardCharacter() {
             </CardContent>
           </Card>
         </Box>
-      </Modal> */}
+      </Modal>
     </CustomCardContent>
   );
 }
