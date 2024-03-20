@@ -82,8 +82,8 @@ export default function CardCharacter() {
       >
         <Card
           sx={{
-            width: "100%", // Aumentando a largura do card dentro do modal
-            height: "100%", // Aumentando a altura do card dentro do modal
+            width: "100%",
+            height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.32)",
             color: "rgb(245, 245, 245)",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 2)",
