@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { listAllCharacters, listSingleCharacter } from "../../services";
+
+import { listAllCharacters } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse } from "../../services/type";
-import { Status } from "../Status";
 import { Pagination, Stack } from "@mui/material";
 
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import { Box, CardContent, Card } from "./style";
+
+import { Character } from "../Character";
 
 export type CardCharacterProps = {
   name: string;
@@ -26,21 +23,6 @@ export type CardCharacterProps = {
     name: string;
     url: string;
   }[];
-};
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600, // Alterando a largura do modal
-  height: 600, // Alterando a altura do modal
-  bgcolor: "rgb(39, 43, 51);",
-  border: "2px solid #000",
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
 };
 
 export default function CardCharacter() {
@@ -65,66 +47,8 @@ export default function CardCharacter() {
     : 10;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      {characters &&
-        characters.map((prop: any) => {
-          return (
-            <Card
-              sx={{
-                width: "40%",
-                height: "40vh",
-                backgroundColor: "rgba(0, 0, 0, 0.32)",
-                color: "rgb(245, 245, 245)",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 2)",
-              }}
-              style={{
-                display: "flex",
-                columnGap: 16,
-              }}
-              key={prop.id}
-            >
-              <CardMedia
-                component="img"
-                image={prop.image}
-                style={{ width: "34%", height: "40vh" }}
-              />
-              <CardContent style={{ width: "100%", padding: 3 }}>
-                <Typography gutterBottom variant="h5" component="div">
-                  {prop.name}
-                </Typography>
-                <Status status={prop.status} species={prop.species} />
-                <Typography gutterBottom variant="body2" component="div">
-                  <p>
-                    <strong> Localização:</strong> {prop.location.name}
-                  </p>
-                  <p>Total de Episódios: {prop.episode.length}</p>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    onClick={async () => {
-                      setOpen(!open);
-                      const singleCharacter = await listSingleCharacter(
-                        prop.id
-                      );
-                      setCharacter(singleCharacter.value.character);
-                    }}
-                  >
-                    Saber mais
-                  </Button>
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })}
+    <CardContent>
+      <Character data={characters} />
       <Stack spacing={2} py={4}>
         <Pagination
           count={count}
@@ -133,7 +57,7 @@ export default function CardCharacter() {
           color="secondary"
         />
       </Stack>
-      <Modal
+      {/* <Modal
         open={open}
         onClose={() => {
           setOpen(false);
@@ -142,7 +66,7 @@ export default function CardCharacter() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box>
           <Card
             sx={{
               width: "100%", // Aumentando a largura do card dentro do modal
@@ -198,7 +122,7 @@ export default function CardCharacter() {
             </CardContent>
           </Card>
         </Box>
-      </Modal>
-    </div>
+      </Modal> */}
+    </CardContent>
   );
 }
