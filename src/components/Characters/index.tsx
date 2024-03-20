@@ -18,7 +18,7 @@ export const Characters = ({ characters, handleChange }: CharactersProps) => {
       {characters &&
         characters.map((character) => {
           return (
-            <CustomCardItemContent key={character.id}>
+            <CustomCardItemContent item xs={4} key={character.id}>
               <CardMedia
                 component="img"
                 image={character.image}

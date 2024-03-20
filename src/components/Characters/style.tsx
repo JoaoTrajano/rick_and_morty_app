@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import Card from "@mui/material/Card";
-import { CardContent } from "@mui/material";
+import { CardContent, Grid } from "@mui/material";
 
-export const CustomCardItemContent = styled(Card)`
+export const CustomCardItemContent = styled(Grid)`
   width: 40%;
   height: 40vh;
   background-color: rgba(0, 0, 0, 0.32);

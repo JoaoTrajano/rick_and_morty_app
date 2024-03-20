@@ -1,6 +1,7 @@
+import { Grid } from "@mui/material";
 import styled from "styled-components";
 
-export const CustomCardContent = styled.div`
+export const CustomCardContent = styled(Grid)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;

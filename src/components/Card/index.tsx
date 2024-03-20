@@ -7,8 +7,10 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Grid,
   Pagination,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 
@@ -55,86 +57,101 @@ export default function CardCharacter() {
     : 10;
 
   return (
-    <CustomCardContent>
-      <Characters
-        characters={characters}
-        handleChange={{
-          openModal: setOpen,
-          handleSetCharacter: setCharacter,
-        }}
-      />
-      <Stack spacing={2} py={4}>
-        <Pagination
-          count={count}
-          page={page}
-          onChange={handleChange}
-          color="secondary"
+    <Grid container spacing={4} padding={4}>
+      <Grid item>
+        <TextField
+          id="standard-basic"
+          label="Pesquise por NOME ou por STATUS"
+          variant="outlined"
+          color="primary"
         />
-      </Stack>
-      <Modal
-        open={open}
-        onClose={() => {
-          setOpen(false);
-          setCharacter({});
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Card
-          sx={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.32)",
-            color: "rgb(245, 245, 245)",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 2)",
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            columnGap: 16,
-          }}
-        >
-          <CardMedia
-            component="img"
-            image={character?.image}
-            style={{ width: "100%", height: "64vh", objectFit: "cover" }}
-          />
-          <Typography gutterBottom variant="h5" component="div">
-            {character?.name}
-            <Status status={character?.status} species={character?.species} />
-          </Typography>
-          <CardContent
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-around",
-              width: "100%",
-              padding: 3,
+      </Grid>
+      <Grid item>
+        <CustomCardContent container>
+          <Characters
+            characters={characters}
+            handleChange={{
+              openModal: setOpen,
+              handleSetCharacter: setCharacter,
             }}
+          />
+          <Stack spacing={2} py={4}>
+            <Pagination
+              count={count}
+              page={page}
+              onChange={handleChange}
+              color="secondary"
+            />
+          </Stack>
+          <Modal
+            open={open}
+            onClose={() => {
+              setOpen(false);
+              setCharacter({});
+            }}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <div>
-              <Typography gutterBottom variant="body2" component="div">
-                <p>
-                  <strong> Localização:</strong> {character?.location?.name}
-                </p>
-                <p>Total de Episódios: {character?.episode?.length}</p>
+            <Card
+              sx={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.32)",
+                color: "rgb(245, 245, 245)",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 2)",
+              }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                columnGap: 16,
+              }}
+            >
+              <CardMedia
+                component="img"
+                image={character?.image}
+                style={{ width: "100%", height: "64vh", objectFit: "cover" }}
+              />
+              <Typography gutterBottom variant="h5" component="div">
+                {character?.name}
+                <Status
+                  status={character?.status}
+                  species={character?.species}
+                />
               </Typography>
-              <Typography gutterBottom variant="body2" component="div">
-                <p>
-                  <strong> Genêro:</strong> {character?.gender}
-                </p>
-              </Typography>
-            </div>
-            <div>
-              <Typography gutterBottom variant="body2" component="div">
-                <p>
-                  <strong> Origem:</strong> {character?.origin?.name}
-                </p>
-              </Typography>
-            </div>
-          </CardContent>
-        </Card>
-      </Modal>
-    </CustomCardContent>
+              <CardContent
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  width: "100%",
+                  padding: 3,
+                }}
+              >
+                <div>
+                  <Typography gutterBottom variant="body2" component="div">
+                    <p>
+                      <strong> Localização:</strong> {character?.location?.name}
+                    </p>
+                    <p>Total de Episódios: {character?.episode?.length}</p>
+                  </Typography>
+                  <Typography gutterBottom variant="body2" component="div">
+                    <p>
+                      <strong> Genêro:</strong> {character?.gender}
+                    </p>
+                  </Typography>
+                </div>
+                <div>
+                  <Typography gutterBottom variant="body2" component="div">
+                    <p>
+                      <strong> Origem:</strong> {character?.origin?.name}
+                    </p>
+                  </Typography>
+                </div>
+              </CardContent>
+            </Card>
+          </Modal>
+        </CustomCardContent>
+      </Grid>
+    </Grid>
   );
 }
