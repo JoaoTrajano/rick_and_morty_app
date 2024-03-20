@@ -18,6 +18,7 @@ import { Status } from "../Status";
 import { Modal } from "../Modal";
 
 export type CardCharacterProps = {
+  id: number;
   name: string;
   status: string;
   species: string;
@@ -48,7 +49,7 @@ export default function CardCharacter() {
     setPage(value);
   };
 
-  const characters = (data as any)?.value?.characters;
+  const characters = data?.value?.characters as CardCharacterProps[];
   const count = (data as any)?.metadata
     ? (data as any)?.metadata.metadata.count
     : 10;

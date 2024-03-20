@@ -2,9 +2,10 @@ import { Button, CardMedia, Typography } from "@mui/material";
 import { CustomCardItemContent, CardItem } from "./style";
 import { Status } from "../Status";
 import { listSingleCharacter } from "../../services";
+import { CardCharacterProps } from "../Card";
 
 export type CharactersProps = {
-  characters: any[];
+  characters: CardCharacterProps[];
   handleChange: {
     openModal: (data: boolean) => void;
     handleSetCharacter: (data: any) => void;
@@ -15,7 +16,7 @@ export const Characters = ({ characters, handleChange }: CharactersProps) => {
   return (
     <>
       {characters &&
-        characters.map((character: any) => {
+        characters.map((character) => {
           return (
             <CustomCardItemContent key={character.id}>
               <CardMedia
@@ -39,7 +40,7 @@ export const Characters = ({ characters, handleChange }: CharactersProps) => {
                     onClick={async () => {
                       handleChange.openModal(true);
                       const singleCharacter = await listSingleCharacter(
-                        character.id
+                        String(character.id)
                       );
                       handleChange.handleSetCharacter(
                         singleCharacter.value.character
