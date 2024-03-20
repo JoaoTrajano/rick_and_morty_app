@@ -9,7 +9,7 @@ Este é um projeto desenvolvido com a biblioteca React. O projeto visa a impleme
 Certifique-se de ter o seguinte instalado em sua máquina:
 
 - Node.js (v18.17.0 LTS)
-- Yarn (v1.22.19)
+- npm (1.1.11)
 
 ## Instalação
 
@@ -22,13 +22,13 @@ npx create-react-app nome-do-projeto --template typescript --use-yarn
 2. Instale as dependências do projeto:
 
    ```
-   yarn install
+   npm install
    ```
 
    ou simplesmente
 
    ```
-   yarn
+   npm i
    ```
 
 ## Uso
@@ -36,7 +36,7 @@ npx create-react-app nome-do-projeto --template typescript --use-yarn
 1. Para iniciar o servidor de desenvolvimento, execute o seguinte comando:
 
    ```
-   yarn start
+   npm start
    ```
 
 2. Acesse a aplicação em `http://localhost:3000`
