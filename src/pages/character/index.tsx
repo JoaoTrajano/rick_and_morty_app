@@ -1,9 +1,12 @@
-import { CardCharacter } from "../../components";
-import { useListAllCharacters } from "../../services/character";
+import { Suspense, lazy } from "react";
+
+import { CircularProgress } from "@mui/material";
+const CardCharacter = lazy(() => import("../../components/Card"));
 
 export const Character = () => {
-  const { data } = useListAllCharacters({});
-  const characters = (data as any)?.value?.characters;
-
-  return <CardCharacter props={characters} />;
+  return (
+    <Suspense fallback={<CircularProgress />}>
+      <CardCharacter />
+    </Suspense>
+  );
 };
